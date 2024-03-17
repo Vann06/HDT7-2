@@ -10,5 +10,81 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
 
+        BinaryTree diccionario = leerDiccionario("diccionario.txt");
+        String nom = "diccionario.txt";
+        Asociacion<String, String> ascociacion;
+        Scanner scan = new Scanner(System.in);
+
+        while(true) {
+            System.out.println("Bienvenido al Traductor de Ingles-Español!");
+            System.out.println("1. Traducir txt");
+            System.out.println("2. Ingresar Texto");
+            System.out.println("3. Mostrar in-order del arbol");
+            System.out.println("4. Salir");
+            System.out.println("Elija una opcion > ");
+
+            String opcion = scan.nextLine();
+            int choice;
+            try {
+                choice = Integer.parseInt(opcion);
+            } catch (NumberFormatException e) {
+                System.out.println("Opcion invalida, ingrese un numero de opcion");
+                continue;
+            }
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Traduccion del txt");
+                    System.out.println("Ingrese el nombre del archivo de texto a traducir: ");
+                    String nombreArchivo = scan.nextLine();
+
+                    break;
+                case 2:
+                    System.out.println("Ingrese el texto a traducir: ");
+                    String texto = scan.nextLine();
+
+                    break;
+                case 3:
+                    System.out.println("Mostrando relaciones ordenadas por la palabra en ingles.. ");
+                    diccionario.printInOrder();
+                    break;
+                case 4:
+                    System.out.println("Saliendo..");
+                    scan.close();
+                    return;
+                default:
+                    System.out.println("Opcion invalida");
+                    break;
+            }
+        }
     }
+
+    public static BinaryTree leerDiccionario(String fileName) {
+        BinaryTree diccionario = new BinaryTree();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            String line;
+            while ((line = br.readLine()) != null) {
+                cargarPalabra(diccionario, line);
+            }
+            br.close();
+            System.out.println("El diccionario se cargó correctamente.");
+        } catch (IOException e) {
+            System.out.println("Error al cargar el diccionario: " + e.getMessage());
+        }
+        return diccionario;
+    }
+
+    private static void cargarPalabra(BinaryTree diccionario, String line) {
+        int startParenIndex = 1 + line.indexOf("(");
+        int endParenIndex = line.indexOf(")");
+        int commaIndex = line.indexOf(",");
+
+        String key = line.substring(startParenIndex, commaIndex).trim();
+        String espanol = line.substring(2 + commaIndex, endParenIndex).trim().toLowerCase();
+
+        Asociacion<String, String> asoc = new Asociacion<>(key.toLowerCase(), espanol);
+        diccionario.insert(asoc);
+    }
+
 }
