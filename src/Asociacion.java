@@ -1,2 +1,42 @@
-package PACKAGE_NAME;public class Asociacion {
+/*
+Universidad del Valle de Guatemala
+Facultad de Ingenieria
+Algoritmos y Estructura de Datos
+Vianka Castro 23201
+Clase Asociacion<K, V>
+ */
+
+import java.util.HashMap;
+import java.util.HashMap;
+
+public class Asociacion<K, V> {
+
+    private K key;
+    private V value;
+
+    public Asociacion(K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public K getKey() {
+        return key;
+    }
+
+    public void setKey(K key) {
+        this.key = key;
+    }
+
+    public V getValue() {
+        return value;
+    }
+
+    public void setValue(V value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + key + ", " + value + ")";
+    }
 }
