@@ -42,13 +42,28 @@ public class BinaryTree {
 
 
     public void printInOrder() {
+        //imprime hasta la izq
         if (izq != null) {
             izq.printInOrder();
         }
         System.out.println(data);
+        //imprime hasta la der
         if (der != null) {
             der.printInOrder();
         }
     }
 
+    public Asociacion<String, String> search(String key) {
+        //si es nulo o si ese mismo es el buscado
+        if (data == null || key.equalsIgnoreCase(data.getKey())) {
+            return data;
+            //se hace busqueda en arbol izquierdo
+        } else if (key.compareToIgnoreCase(data.getKey()) < 0 && izq != null) {
+            return izq.search(key);
+            //luego se verifica si el derecho no es nulo
+        } else if (der != null) {
+            return der.search(key);
+        }
+        return null;
+    }
 }

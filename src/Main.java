@@ -42,7 +42,7 @@ public class Main {
                 case 2:
                     System.out.println("Ingrese el texto a traducir: ");
                     String texto = scan.nextLine();
-
+                    traducirTexto(diccionario, texto);
                     break;
                 case 3:
                     System.out.println("Mostrando relaciones ordenadas por la palabra en ingles.. ");
@@ -85,6 +85,24 @@ public class Main {
 
         Asociacion<String, String> asoc = new Asociacion<>(key.toLowerCase(), espanol);
         diccionario.insert(asoc);
+    }
+
+    private static void traducirTexto(BinaryTree diccionario, String texto) {
+        String[] palabras = texto.split("\\s+");
+        StringBuilder traduccion = new StringBuilder();
+        //Por cada palabra la busca en el diccionario el key que es en ingles
+        for (String palabra : palabras) {
+            Asociacion<String, String> asociacion = diccionario.search(palabra.toLowerCase());
+            //si existe, imprime el value que es espanol
+            if (asociacion != null) {
+                traduccion.append(asociacion.getValue()).append(" ");
+                //si asociacion es nulo imprime la palabra que no encontro entre * *
+            } else {
+                traduccion.append("*").append(palabra).append("* ");
+            }
+        }
+        System.out.println("Texto traducido:");
+        System.out.println(traduccion);
     }
 
 }
