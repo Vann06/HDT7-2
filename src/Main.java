@@ -37,6 +37,9 @@ public class Main {
                     System.out.println("Traduccion del txt");
                     System.out.println("Ingrese el nombre del archivo de texto a traducir: ");
                     String nombreArchivo = scan.nextLine();
+                    String txt = leerArchivo(nombreArchivo);
+                    traducirTexto(diccionario, txt);
+
 
                     break;
                 case 2:
@@ -104,5 +107,22 @@ public class Main {
         System.out.println("Texto traducido:");
         System.out.println(traduccion);
     }
+
+    //poder leer un txt y pedirle su nombre
+    private static String leerArchivo(String nombreArchivo) {
+        StringBuilder contenido = new StringBuilder();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(nombreArchivo));
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                contenido.append(linea).append("\n");
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        }
+        return contenido.toString();
+    }
+
 
 }

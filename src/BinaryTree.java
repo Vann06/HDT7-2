@@ -40,7 +40,7 @@ public class BinaryTree {
         }
     }
 
-
+    //https://dev.to/ronnymedina/estructura-de-datos-binary-tree-arbol-binario-2geb
     public void printInOrder() {
         //imprime hasta la izq
         if (izq != null) {
@@ -53,6 +53,8 @@ public class BinaryTree {
         }
     }
 
+    //Fuente:
+    //Bailey, D. A. (2003). Java structures: Data structures in Java for the principled programmer. McGraw-Hill, Boston, Mau.
     public Asociacion<String, String> search(String key) {
         //si es nulo o si ese mismo es el buscado
         if (data == null || key.equalsIgnoreCase(data.getKey())) {
