@@ -8,10 +8,9 @@ Clase Main
 import java.io.*;
 import java.util.Scanner;
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args){
 
         BinaryTree diccionario = leerDiccionario("diccionario.txt");
-        String nom = "diccionario.txt";
         Asociacion<String, String> ascociacion;
         Scanner scan = new Scanner(System.in);
 
@@ -39,8 +38,6 @@ public class Main {
                     String nombreArchivo = scan.nextLine();
                     String txt = leerArchivo(nombreArchivo);
                     traducirTexto(diccionario, txt);
-
-
                     break;
                 case 2:
                     System.out.println("Ingrese el texto a traducir: ");
@@ -62,6 +59,13 @@ public class Main {
         }
     }
 
+    /**
+     * Lee un diccionario desde un archivo de texto y lo carga en un BinaryTree.
+     *
+     * @param fileName el nombre del archivo de texto que contiene el diccionario
+     * @return un BinaryTree que contiene el diccionario cargado desde el archivo
+     * @throws NullPointerException si fileName es null
+     */
     public static BinaryTree leerDiccionario(String fileName) {
         BinaryTree diccionario = new BinaryTree();
         try {
@@ -78,6 +82,14 @@ public class Main {
         return diccionario;
     }
 
+    /**
+     * Carga una palabra y su traducción en español en un BinaryTree.
+     *
+     * @param diccionario el BinaryTree en el que se cargará la palabra y su traducción
+     * @param line la línea del archivo que contiene la palabra y su traducción en el formato "(clave, valor)"
+     * @throws NullPointerException si diccionario o line es null
+     * @throws IllegalArgumentException si line no está en el formato esperado "(clave, valor)"
+     */
     private static void cargarPalabra(BinaryTree diccionario, String line) {
         int startParenIndex = 1 + line.indexOf("(");
         int endParenIndex = line.indexOf(")");
@@ -90,7 +102,15 @@ public class Main {
         diccionario.insert(asoc);
     }
 
-    private static void traducirTexto(BinaryTree diccionario, String texto) {
+    /**
+     * Traduce un texto de inglés a español utilizando un diccionario BinaryTree.
+     *
+     * @param diccionario el BinaryTree que contiene las asociaciones de palabras inglés-español
+     * @param texto el texto que se traducirá
+     * @return un StringBuilder que contiene el texto traducido con palabras no encontradas entre asteriscos
+     * @throws NullPointerException si diccionario o texto es null
+     */
+    public static StringBuilder traducirTexto(BinaryTree diccionario, String texto) {
         String[] palabras = texto.split("\\s+");
         StringBuilder traduccion = new StringBuilder();
         //Por cada palabra la busca en el diccionario el key que es en ingles
@@ -106,9 +126,16 @@ public class Main {
         }
         System.out.println("Texto traducido:");
         System.out.println(traduccion);
+        return traduccion;
     }
 
-    //poder leer un txt y pedirle su nombre
+    /**
+     * Lee el contenido de un archivo de texto y lo devuelve como una cadena de caracteres.
+     *
+     * @param nombreArchivo el nombre del archivo de texto que se leerá
+     * @return una cadena de caracteres que representa el contenido del archivo
+     * @throws NullPointerException si nombreArchivo es null
+     */
     private static String leerArchivo(String nombreArchivo) {
         StringBuilder contenido = new StringBuilder();
         try {
